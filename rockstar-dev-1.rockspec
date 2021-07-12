@@ -14,9 +14,9 @@ description = {
 }
 dependencies = {
 	"lua >= 5.1, < 5.4",
-	"rocksfs"
-	"rocksfun"
-	"rocksdir"
+	"rocksfs",
+	"rocksfun",
+	"rocksdir",
 }
 build = {
 	type = "builtin",
