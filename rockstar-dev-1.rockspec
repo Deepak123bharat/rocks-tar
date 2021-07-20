@@ -1,5 +1,5 @@
 rockspec_format = "3.0"
-package = "rockstar"
+package = "rocks-tar"
 version = "dev-1"
 source = {
 	url = "git://github.com/Deepak123bharat/rocks-tar",
