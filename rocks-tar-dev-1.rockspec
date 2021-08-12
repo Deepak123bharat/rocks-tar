@@ -26,6 +26,9 @@ build = {
 }
 test_dependencies = {
    "busted-htest",
+   "rocks-zip",
+   "rocks-fs",
+   "rocks-sysdetect"
 }
 test = {
    type = "busted",
