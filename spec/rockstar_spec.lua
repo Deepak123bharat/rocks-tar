@@ -44,27 +44,40 @@ describe("Luarocks tar test #unit", function()
       return result_check
    end
 
+   local platform_sets = {
+      freebsd = { unix = true, bsd = true, freebsd = true },
+      openbsd = { unix = true, bsd = true, openbsd = true },
+      solaris = { unix = true, solaris = true },
+      windows = { windows = true, win32 = true },
+      cygwin = { unix = true, cygwin = true },
+      macosx = { unix = true, bsd = true, macosx = true, macos = true },
+      netbsd = { unix = true, bsd = true, netbsd = true },
+      haiku = { unix = true, haiku = true },
+      linux = { unix = true, linux = true },
+      mingw = { windows = true, win32 = true, mingw32 = true, mingw = true },
+      msys = { unix = true, cygwin = true, msys = true },
+      msys2_mingw_w64 = { windows = true, win32 = true, mingw32 = true, mingw = true, msys = true, msys2_mingw_w64 = true },
+   }
+   
    setup(function ()
-      local sys, arc = sysdetect.detect()
-      if(sys == "linux") then
-         fs.init({sys, "unix"})
-      else
-         fs.init({sys})
+      local plats = {}
+      local sys, _ = sysdetect.detect()
+      for key, _ in pairs(platform_sets) do
+         if key == sys then
+            for platforms, _ in pairs(platform_sets[key]) do
+               plats[#plats+1] = platforms
+            end
+         end
       end
+       
+      fs.init(plats)
    end)
 
    describe("zip.gunzip", function()
-      it("unpacking .tar.gz archives", function()
-         local ok, err
-         local archive = fs.absolute_name("spec/luarocks-3.7.0.tar.gz")
-         local tar_filename = archive:gsub("%.gz$", "")
-         --assert.falsy(file_exists(tar_filename))
-         ok, err = zip.gunzip(archive, tar_filename)
-         assert.truthy(ok)
-         assert.truthy(file_exists(tar_filename)) 
-      end)
-
       it("Checking that it doesn't untar .tar.gz archives", function()
+         finally(function ()
+            remove_dir("dest")
+         end)
          assert.falsy(fs.is_dir("dest"))
          local ok, err
          ok, err = tar.untar("spec/luarocks-3.7.0.tar.gz", "dest")
@@ -73,15 +86,18 @@ describe("Luarocks tar test #unit", function()
       end)
 
       it("unpacking .tar archives", function()
-         local ok, err
+         finally(function ()
+            remove_dir("dest")
+            remove_files("spec","%.tar$")
+         end)
+         local archive = fs.absolute_name("spec/luarocks-3.7.0.tar.gz")
+         local tar_filename = archive:gsub("%.gz$", "")
+         local ok, err = zip.gunzip(archive, tar_filename)
+         assert.truthy(ok)
          assert.falsy(fs.is_dir("dest"))
          ok, err = tar.untar("spec/luarocks-3.7.0.tar", "dest")
-         print(ok, err)
          assert.truthy(ok)
          assert.truthy(fs.is_dir("dest")) 
-         remove_dir("dest")
-         remove_files("spec","%.tar$")
-         assert.falsy(fs.is_dir("dest"))
       end)
    end)
 end)
