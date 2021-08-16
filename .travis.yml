@@ -15,7 +15,7 @@ before_install:
   - luarocks install tl
 
 install:
-  - luarocks install rocks-tar --dev
+  - luarocks make --dev
 
 script:
   - tl check src/rocks/tar.d.tl
