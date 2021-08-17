@@ -28,7 +28,8 @@ test_dependencies = {
    "busted-htest",
    "rocks-fs",
    "rocks-zip",
-   "rocks-sysdetect"
+   "rocks-sysdetect",
+   "lfs"
 }
 test = {
    type = "busted",
