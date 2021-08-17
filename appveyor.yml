@@ -27,9 +27,11 @@ before_build:
 # @todo
 - echo "Installing external deps"
 - luarocks install rocks-fs --dev
+- luarocks install rocks-zip --dev
+- luarocks install rocks-sysdetect --dev
 
 build_script:
-- luarocks make --dev
+- luarocks make 
 
 before_test:
 - luarocks install rocks-fs --dev

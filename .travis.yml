@@ -15,7 +15,6 @@ before_install:
   - luarocks install tl
   - luarocks install rocks-zip --dev
   - luarocks install rocks-sysdetect --dev
-  - luarocks install luafilesystem
 
 install:
   - luarocks make --dev
