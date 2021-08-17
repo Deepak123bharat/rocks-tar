@@ -37,7 +37,7 @@ before_test:
 
 test_script:
 - echo "Type check..."
-- tl check src/rocks/fs.d.tl
+- tl check src/rocks/tar.d.tl
 - echo "Testing..."
 - luarocks test 
 
