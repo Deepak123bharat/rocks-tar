@@ -22,13 +22,11 @@ install:
   - set PATH=%CD%\env\bin;C:\Python27\Scripts;C:\MinGW\bin;%PATH%
   - pip install hererocks
   - hererocks env --%LUA% --target %configuration% --luarocks latest
-  - c:\tools\vcpkg\vcpkg.exe install zlib:x64-windows
 
 before_build:
 # @todo
 - echo "Installing external deps"
 - luarocks install rocks-fs --dev
-- luarocks install rocks-zip --dev ZLIB_DIR=C:\Tools\vcpkg\packages\zlib_x64-windows
 - luarocks install rocks-sysdetect --dev
 
 build_script:
