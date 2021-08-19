@@ -1,6 +1,5 @@
 local tar = require("rocks.tar")
 local fs = require("rocks.fs")
-local zip = require("rocks.zip")
 local lfs = require("lfs")
 local sysdetect = require("rocks.sysdetect")
 
