@@ -27,6 +27,8 @@ before_build:
 # @todo
 - echo "Installing external deps"
 - luarocks install rocks-fs --dev
+- luarocks install rocks-fun --dev
+- luarocks install rocks-dir --dev
 - luarocks install rocks-sysdetect --dev
 
 build_script:
