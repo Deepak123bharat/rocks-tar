@@ -28,22 +28,6 @@ describe("Luarocks tar test #unit", function()
       lfs.rmdir(path)
    end
 
-   local remove_files = function (path, pattern)
-      local result_check = false
-      if file_exists(path) then
-         for file in lfs.dir(path) do
-            if file ~= "." and file ~= ".." then
-               if file:find(pattern) then
-                  if os.remove(path .. "/" .. file) then
-                     result_check = true
-                  end
-               end
-            end
-         end
-      end
-      return result_check
-   end
-
    local platform_sets = {
       freebsd = { unix = true, bsd = true, freebsd = true },
       openbsd = { unix = true, bsd = true, openbsd = true },
@@ -86,14 +70,11 @@ describe("Luarocks tar test #unit", function()
       it("unpacking .tar archives", function()
          finally(function ()
             remove_dir("dest")
-            remove_files("spec","%.tar$")
          end)
-         local archive = fs.absolute_name("spec/luarocks-3.7.0.tar.gz")
-         local tar_filename = archive:gsub("%.gz$", "")
-         local ok, err = zip.gunzip(archive, tar_filename)
-         assert.truthy(ok)
+         local ok, err
          assert.falsy(fs.is_dir("dest"))
-         ok, err = tar.untar("spec/luarocks-3.7.0.tar", "dest")
+         ok, err = tar.untar("spec/file.tar", "dest")
+         assert.falsy(err)
          assert.truthy(ok)
          assert.truthy(fs.is_dir("dest")) 
       end)
