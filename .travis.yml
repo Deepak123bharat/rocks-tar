@@ -17,7 +17,7 @@ before_install:
   - luarocks install rocks-sysdetect --dev
 
 install:
-  - luarocks make --dev
+  - luarocks make 
 
 script:
   - tl check src/rocks/tar.d.tl

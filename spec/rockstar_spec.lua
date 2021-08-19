@@ -62,11 +62,9 @@ describe("Luarocks tar test #unit", function()
    setup(function ()
       local plats = {}
       local sys, _ = sysdetect.detect()
-      for key, _ in pairs(platform_sets) do
-         if key == sys then
-            for platforms, _ in pairs(platform_sets[key]) do
+      if platform_sets[sys] then
+         for platforms, _ in pairs(platform_sets[sys]) do
                plats[#plats+1] = platforms
-            end
          end
       end
        
